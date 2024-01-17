@@ -26,7 +26,7 @@
                     <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
                     <li class="nav__item"><a href="#skills" class="nav__link">Skills</a></li>
                     <li class="nav__item"><a href="#work" class="nav__link">Work</a></li>
-                    <!-- <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li> -->
+                    <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
                 </ul>
             </div>
 
@@ -63,7 +63,14 @@
 
                 <div>
                     <h2 class="about__subtitle" style="text-align: center;">I'am Joel</h2>
-                    <p class="about__text" style="text-align: center;font-weight:600;">I'm a passionate full-stack web engineer. With a strong foundation in both front-end and back-end development, I specialize in creating dynamic and responsive web applications. My expertise includes crafting intuitive user interfaces using modern frameworks and libraries, as well as designing and implementing robust server-side architectures. I thrive on the challenges of bridging the gap between user experience and technical functionality, ensuring seamless and efficient interactions. My goal is to leverage my skills to contribute to innovative and impactful projects, delivering high-quality solutions that meet both user and business needs.</p>
+                    <p class="about__text" style="text-align: center;font-weight:600;">I'm a passionate full-stack web
+                        engineer. With a strong foundation in both front-end and back-end development, I specialize in
+                        creating dynamic and responsive web applications. My expertise includes crafting intuitive user
+                        interfaces using modern frameworks and libraries, as well as designing and implementing robust
+                        server-side architectures. I thrive on the challenges of bridging the gap between user
+                        experience and technical functionality, ensuring seamless and efficient interactions. My goal is
+                        to leverage my skills to contribute to innovative and impactful projects, delivering
+                        high-quality solutions that meet both user and business needs.</p>
                 </div>
             </div>
         </section>
@@ -75,7 +82,8 @@
             <div class="skills__container bd-grid">
                 <div>
                     <h2 class="skills__subtitle">Profesional Skills</h2>
-                    <p class="skills__text">I have honed my personal skills through a year of practical experience.</p>
+                    <p class="skills__text" style="font-weight:600;">I have honed my personal skills through a year of
+                        practical experience.</p>
                     <div class="skills__data">
                         <div class="skills__names">
                             <i class='bx bxl-html5 skills__icon'></i>
@@ -261,10 +269,10 @@
 
             <div class="work__container bd-grid">
                 <a href="#work" class="work__img" download="">
-                    <img src="assets/img/web.png" alt="" >
+                    <img src="assets/img/web.png" alt="">
                 </a>
                 <a href="#work" class="work__img" download="">
-                    <img src="assets/img/api.png" alt="" >
+                    <img src="assets/img/api.png" alt="">
                 </a>
                 <a href="#work" class="work__img" download="">
                     <img src="assets/img/socket.png" alt="">
@@ -281,19 +289,28 @@
             </div>
         </section>
 
-            <!--===== CONTACT =====-->
-            <!-- <section class="contact section" id="contact">
-                <h2 class="section-title">Contact</h2>
-            
-                <div class="contact__container bd-grid">
-                    <form action="#" class="contact__form" id="contactForm">
-                        <input type="text" placeholder="Name" class="contact__input" required>
-                        <input type="email" placeholder="Email" class="contact__input" required>
-                        <textarea placeholder="Your Message" class="contact__input" required></textarea>
-                        <input type="submit" value="Send" class="contact__button button">
-                    </form>
-                </div>
-            </section> -->
+        <!--===== CONTACT =====-->
+        <section class="contact section" id="contact">
+            <h2 class="section-title">Contact</h2>
+
+            <div class="contact__container bd-grid">
+                <form name="submit-to-google-sheet" action="#" class="contact__form" id="contactForm">
+                    <input name="name" type="text" placeholder="Name" class="contact__input" required>
+                    <input name="email" type="email" placeholder="Email" class="contact__input" required>
+                    <textarea name="message" placeholder="Your Message" class="contact__input" required></textarea>
+                    <div class="send_btn">
+                        <button type="submit" class="contact__button button" id="btn">Send</button>
+                        <div class="wrapper" id="msg">
+                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+                                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                            </svg>
+                        </div>
+                    </div>
+                </form>
+                
+            </div>
+        </section>
     </main>
 
     <!--===== FOOTER =====-->
@@ -302,8 +319,6 @@
             <p>contact me through</p>
             <a href="https://instagram.com/jesse_joel01" class="footer__icon"><i class='bx bxl-instagram'></i></a>
             <a href="mailto:lfjoel90@gmail.com" class="footer__icon"><i class='bx bx-envelope'></i></a>
-
-            
         </div>
         <p class="footer__copy">&#169;.All rigths reserved</p>
     </footer>
@@ -312,6 +327,32 @@
 
     <!--===== MAIN JS =====-->
     <script src="assets/js/main.js"></script>
+
+
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyWk9G5JGM5HGzR2_8VK7dhfjPA3G518-mpFzblA4zZFaV1H9rMnTpiLiNaHo6k77mI/exec'
+        const form = document.forms['submit-to-google-sheet']
+        const btn = document.getElementById("btn")
+
+        form.addEventListener('submit', e => {
+            e.preventDefault()
+            btn.innerHTML = "Sending.."
+            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                .then(response => {
+                    var msg = document.getElementById('msg');    
+                    msg.style.display = 'block';
+                    btn.style.display = "none";
+                    setTimeout(function () {
+                        msg.style.display = 'none';
+                        btn.style.display = "inline-block";
+                    }, 6000);
+                    btn.innerHTML = "Send";
+                    form.reset();
+                })
+                .catch(error => console.error('Error!', error.message));
+        })
+    </script>
 
 </body>
 
