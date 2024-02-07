@@ -53,6 +53,13 @@ body {
   font-size: var(--normal-font-size);
   color: var(--second-color);
 }
+.badge{
+  max-width: 100%;
+  height: auto;
+  display: inline;
+  position: absolute;
+  height: 30px;
+} 
 
 h1,
 h2,
